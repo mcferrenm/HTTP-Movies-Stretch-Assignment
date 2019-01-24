@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
+import axios from "axios";
 
 import Nav from "./Movies/Nav";
 import SavedList from "./Movies/SavedList";
@@ -7,10 +8,13 @@ import MovieList from "./Movies/MovieList";
 import Movie from "./Movies/Movie";
 import MovieCreate from "./Movies/MovieCreate";
 
+const BASE_HOST = "http://localhost:5000";
+
 export default class App extends Component {
   constructor() {
     super();
     this.state = {
+      movies: [],
       savedList: [],
       movie: {
         id: "",
@@ -20,6 +24,14 @@ export default class App extends Component {
         stars: []
       }
     };
+  }
+
+  componentDidMount() {
+    // fill me in with an HTTP Request to `localhost:5000/api/movies`
+    axios
+      .get(`${BASE_HOST}/api/movies`)
+      .then(res => this.setState({ movies: res.data }))
+      .catch(err => console.log(err));
   }
 
   handleChanges = event => {
@@ -34,6 +46,11 @@ export default class App extends Component {
     });
   };
 
+  // createMovie = () => {
+  //   axios
+  //     .post("")
+  // }
+
   addToSavedList = movie => {
     console.log(this.state.savedList);
     const savedList = this.state.savedList;
@@ -46,7 +63,11 @@ export default class App extends Component {
       <div>
         <Nav />
         <SavedList list={this.state.savedList} />
-        <Route exact path="/" component={MovieList} />
+        <Route
+          exact
+          path="/"
+          render={props => <MovieList {...props} movies={this.state.movies} />}
+        />
         <Route
           path="/movies/:id"
           render={props => {
