@@ -19,8 +19,8 @@ const CLEARED_MOVIE = {
 };
 
 export default class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       movies: [],
       savedList: [],
@@ -71,9 +71,12 @@ export default class App extends Component {
       .post(`${BASE_HOST}/api/movies`, this.state.movie)
       .then(res => this.setState({ movies: res.data }))
       .catch(err => console.log(err));
+
     this.setState({
       movie: CLEARED_MOVIE
     });
+
+    this.props.history.push("/");
   };
 
   addToSavedList = movie => {
