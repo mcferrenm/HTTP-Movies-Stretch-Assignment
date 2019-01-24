@@ -10,6 +10,14 @@ import MovieCreate from "./Movies/MovieCreate";
 
 const BASE_HOST = "http://localhost:5000";
 
+const CLEARED_MOVIE = {
+  id: "",
+  title: "",
+  director: "",
+  metascore: "",
+  stars: []
+};
+
 export default class App extends Component {
   constructor() {
     super();
@@ -63,6 +71,9 @@ export default class App extends Component {
       .post(`${BASE_HOST}/api/movies`, this.state.movie)
       .then(res => this.setState({ movies: res.data }))
       .catch(err => console.log(err));
+    this.setState({
+      movie: CLEARED_MOVIE
+    });
   };
 
   addToSavedList = movie => {
