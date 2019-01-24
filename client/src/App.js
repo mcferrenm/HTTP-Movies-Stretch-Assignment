@@ -36,20 +36,34 @@ export default class App extends Component {
 
   handleChanges = event => {
     event.persist();
-    this.setState(prevState => {
-      return {
-        movie: {
-          ...prevState.movie,
-          [event.target.name]: event.target.value
-        }
-      };
-    });
+    if (event.target.name === "stars") {
+      this.setState(prevState => {
+        return {
+          movie: {
+            ...prevState.movie,
+            stars: [].concat(event.target.value.split(","))
+          }
+        };
+      });
+    } else {
+      this.setState(prevState => {
+        return {
+          movie: {
+            ...prevState.movie,
+            [event.target.name]: event.target.value
+          }
+        };
+      });
+    }
   };
 
-  // createMovie = () => {
-  //   axios
-  //     .post("")
-  // }
+  createMovie = e => {
+    e.preventDefault();
+    axios
+      .post(`${BASE_HOST}/api/movies`, this.state.movie)
+      .then(res => this.setState({ movies: res.data }))
+      .catch(err => console.log(err));
+  };
 
   addToSavedList = movie => {
     console.log(this.state.savedList);
@@ -81,6 +95,7 @@ export default class App extends Component {
               {...props}
               handleChanges={this.handleChanges}
               movie={this.state.movie}
+              createMovie={this.createMovie}
             />
           )}
         />
