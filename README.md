@@ -1,4 +1,4 @@
-init
+Init
 
 # HTTP Movies - Stretch Assignment
 
