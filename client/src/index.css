@@ -5,6 +5,21 @@ body {
   background-color: #f2f2f2;
 }
 
+.nav {
+  background-color: #fff;
+  border: 0;
+  box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, 0.12),
+    0 2px 4px rgba(0, 0, 0, 0.24);
+  padding: 1rem;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
 .movie-card {
   background-color: #fff;
   border: 0;
@@ -14,6 +29,7 @@ body {
   cursor: pointer;
   position: relative;
   margin: 1rem auto;
+  width: 75%;
 }
 
 .movie-director {
@@ -29,7 +45,7 @@ body {
   padding: 1rem;
   cursor: pointer;
   position: relative;
-  margin: 1rem auto;
+  margin: 5.3rem auto 1rem;
   width: 75%;
   display: flex;
   align-items: center;
@@ -179,6 +195,7 @@ input:focus + .baseline:before {
   outline: none;
   cursor: pointer;
   transition: box-shadow 0.2s;
+  text-decoration: none;
 }
 
 .md-button:hover,

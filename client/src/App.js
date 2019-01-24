@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 
+import Nav from "./Movies/Nav";
 import SavedList from "./Movies/SavedList";
 import MovieList from "./Movies/MovieList";
 import Movie from "./Movies/Movie";
@@ -24,6 +25,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
+        <Nav />
         <SavedList list={this.state.savedList} />
         <Route exact path="/" component={MovieList} />
         <Route
