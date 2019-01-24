@@ -11,9 +11,28 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      savedList: []
+      savedList: [],
+      movie: {
+        id: "",
+        title: "",
+        director: "",
+        metascore: "",
+        stars: []
+      }
     };
   }
+
+  handleChanges = event => {
+    event.persist();
+    this.setState(prevState => {
+      return {
+        movie: {
+          ...prevState.movie,
+          [event.target.name]: event.target.value
+        }
+      };
+    });
+  };
 
   addToSavedList = movie => {
     console.log(this.state.savedList);
@@ -34,7 +53,16 @@ export default class App extends Component {
             return <Movie {...props} addToSavedList={this.addToSavedList} />;
           }}
         />
-        <Route path="/add" render={props => <MovieCreate {...props} />} />
+        <Route
+          path="/add"
+          render={props => (
+            <MovieCreate
+              {...props}
+              handleChanges={this.handleChanges}
+              movie={this.state.movie}
+            />
+          )}
+        />
       </div>
     );
   }
