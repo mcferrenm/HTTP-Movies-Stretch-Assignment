@@ -30,7 +30,8 @@ export default class App extends Component {
         director: "",
         metascore: "",
         stars: []
-      }
+      },
+      isUpdating: false
     };
   }
 
@@ -79,6 +80,24 @@ export default class App extends Component {
     this.props.history.push("/");
   };
 
+  editMovie = id => {
+    const movie = this.state.movies[id];
+
+    this.setState({
+      movie: movie,
+      isUpdating: true
+    });
+
+    this.props.history.push("/add");
+  };
+
+  cancelUpdate = () => {
+    this.setState({
+      movie: CLEARED_MOVIE
+    });
+    this.props.history.push("/");
+  };
+
   addToSavedList = movie => {
     console.log(this.state.savedList);
     const savedList = this.state.savedList;
@@ -94,7 +113,15 @@ export default class App extends Component {
         <Route
           exact
           path="/"
-          render={props => <MovieList {...props} movies={this.state.movies} />}
+          render={props => (
+            <MovieList
+              {...props}
+              movies={this.state.movies}
+              deleteMovie={this.deleteMovie}
+              editMovie={this.editMovie}
+              updateMovie={this.updateMovie}
+            />
+          )}
         />
         <Route
           path="/movies/:id"
@@ -110,6 +137,9 @@ export default class App extends Component {
               handleChanges={this.handleChanges}
               movie={this.state.movie}
               createMovie={this.createMovie}
+              updateMovie={this.updateMovie}
+              isUpdating={this.state.isUpdating}
+              cancelUpdate={this.cancelUpdate}
             />
           )}
         />

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 export default function MovieCreate(props) {
   return (
     <div className="add-wrapper">
-      <form onSubmit={props.createMovie}>
+      <form>
         <input
           type="text"
           placeholder="Enter title"
@@ -40,9 +40,32 @@ export default function MovieCreate(props) {
           autoComplete="off"
         />
         <div className="baseline" />
-        <button className="md-button" style={{ marginTop: "15px" }}>
-          Add Movie
-        </button>
+        {props.isUpdating ? (
+          <Fragment>
+            <button
+              className="md-button"
+              style={{ marginTop: "15px" }}
+              onClick={props.updateMovie}
+            >
+              Update Movie
+            </button>
+            <button
+              className="md-button"
+              style={{ marginTop: "15px" }}
+              onClick={props.cancelUpdate}
+            >
+              Cancel
+            </button>
+          </Fragment>
+        ) : (
+          <button
+            className="md-button"
+            style={{ marginTop: "15px" }}
+            onClick={props.addMovie}
+          >
+            Add Movie
+          </button>
+        )}
       </form>
     </div>
   );
